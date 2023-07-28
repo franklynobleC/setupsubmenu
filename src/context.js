@@ -7,6 +7,8 @@ const AppContext = createContext()
 export const AppProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false)
+  const [location, setLocation] = useState({})
+  const [page, setPage] = useState({ page: '', links: [] })
 
   //open Side bar
   const openSidebar = () => {
@@ -18,7 +20,13 @@ export const AppProvider = ({ children }) => {
   }
 
   //open modal
-  const openSubmenu = () => {
+  const openSubmenu = (text, coordinates) => {
+    //get  the correct Page when  you  open submenu, if  page  is  equal to  the page coming from my data set it  to  the page
+    const page = sublinks.find(link => link.page === text)
+
+    setPage(page)
+    //for  the location  of  the Submenu
+    setLocation(coordinates)
     setIsSubmenuOpen(true)
   }
 
@@ -35,7 +43,9 @@ export const AppProvider = ({ children }) => {
         openSubmenu,
         closeSubmenu,
         openSidebar,
-        closeSidebar
+        closeSidebar,
+        location,
+        page
       }}
     >
       {children}

@@ -6,13 +6,20 @@ import { useGLobalContext } from './context'
 
 const Navbar = () => {
   const { openSidebar, openSubmenu, closeSubmenu } = useGLobalContext()
+
   const displaySubmenu = e => {
     // console.log(e.target)
-    const page = e.target.textContext
-    const tempBtn = e.target.getBoundingClientReact()
-//this  is   formular to get  the middle of  the Btn Object  of  the
-const center =(tempBtn.left + tempBtn.right)/2
-    openSubmenu()
+    const page = e.target.textContent
+    const tempBtn = e.target.getBoundingClientRect()
+
+    // console.log(tempBtn)
+    //this  is   formular to get  the middle of  the Btn Object OR simply  put, center  of  the Button
+    const center = (tempBtn.left + tempBtn.right) / 2
+
+    //this is Going to Give  the bottom   value,  lift it three  pixels up
+    const bottom = tempBtn.bottom - 3
+
+    openSubmenu(page, { center, bottom })
   }
 
   return (
